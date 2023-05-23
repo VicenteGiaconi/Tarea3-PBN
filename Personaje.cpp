@@ -1,5 +1,8 @@
-#include "Personaje.h"
+#include <iostream>
 #include <string>
+#include "Personaje.h"
+
+using namespace std;
 
 using namespace std;
 
@@ -21,4 +24,6 @@ Personaje::Personaje(string name, int health, int attack, int speed, Posicion po
     vvida = health;
     vataque = attack;
     vvelocidad = speed;
+    cout << "Se creó a " << vnombre << "en las coordenadas (" << vposicion.getX() << "," << vposicion.getY() << ")" << endl;
 }
+Personaje::~Personaje() {}

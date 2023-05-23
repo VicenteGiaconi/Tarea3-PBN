@@ -3,7 +3,10 @@
 
 using namespace std;
 
-int main() {
-    cout << "Balls" << endl;
+int main(int argc, char **argv) {
+
+    Juego juego;
+    juego.jugar();
+    
     return 0;
 }

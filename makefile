@@ -4,6 +4,9 @@ exe=p
 $(exe): Juego.o Mapa.o Personaje.o Posicion.o main.o
 	$(CC) Juego.o Mapa.o Personaje.o Posicion.o main.o -o $(exe)
 
+main.o: main.cpp
+	$(CC) -c main.cpp -o main.o
+
 Posicion.o: Posicion.cpp
 	$(CC) -c Posicion.cpp -o Posicion.o
 
