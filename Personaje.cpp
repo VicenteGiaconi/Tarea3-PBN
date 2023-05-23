@@ -4,8 +4,6 @@
 
 using namespace std;
 
-using namespace std;
-
 int Personaje::ataque() {
     return vataque;
 }
@@ -24,6 +22,8 @@ Personaje::Personaje(string name, int health, int attack, int speed, Posicion po
     vvida = health;
     vataque = attack;
     vvelocidad = speed;
-    cout << "Se creó a " << vnombre << "en las coordenadas (" << vposicion.getX() << "," << vposicion.getY() << ")" << endl;
+    cout << "Se creó a " << vnombre << " en las coordenadas (" << vposicion.getX() << "," << vposicion.getY() << ")" << endl;
 }
-Personaje::~Personaje() {}
+Personaje::~Personaje() {
+    cout << "Se eliminó " << vnombre << endl;
+}

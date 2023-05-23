@@ -1,3 +1,5 @@
+#ifndef PERSONAJE_H
+#define PERSONAJE_H
 #include <string>
 #include "Posicion.h"
 
@@ -18,3 +20,4 @@ public:
     Personaje(string, int, int, int, Posicion);
     ~Personaje();
 };
+#endif

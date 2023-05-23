@@ -7,12 +7,12 @@ void Mapa::crearMapa() {
     // Crea el mapa
 }
 
-void Mapa::agregarPersonaje() {
-    // Crea un personnaje
+void Mapa::agregarPersonaje(Personaje *personaje) {
+    cout << "El personaje " << personaje << " se unió al mapa" << endl;
 }
 
-void Mapa::eliminaPersonaje() {
-    //Elimina un personaje
+void Mapa::eliminaPersonaje(Personaje *personaje) {
+    cout << "El personaje " << personaje << " se eliminó del mapa" << endl;
 }
 
 Mapa::Mapa(int Ancho, int Alto) {

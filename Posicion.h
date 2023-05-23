@@ -1,3 +1,6 @@
+#ifndef POSICION_H
+#define POSICION_H
+
 class Posicion
 {
 private:
@@ -9,3 +12,4 @@ public:
     void set(int, int);
     Posicion(int, int);
 };
+#endif

@@ -1,3 +1,7 @@
+#ifndef MAPA_H
+#define MAPA_H
+#include "Personaje.h"
+
 class Mapa
 {
 private:
@@ -6,7 +10,8 @@ private:
 
 public:
     void crearMapa();
-    void agregarPersonaje();
-    void eliminaPersonaje();
+    void agregarPersonaje(Personaje *);
+    void eliminaPersonaje(Personaje *);
     Mapa(int, int);
 };
+#endif

@@ -20,24 +20,22 @@ void Juego::jugar() {
         lista_completa.push_back(linea);
     }
 
-    if (!lista_completa.empty()) {
-        string primera_linea = lista_completa.front();
-        lista_completa.pop_front();
+    string primera_linea = lista_completa.front();
+    lista_completa.pop_front();
 
-        istringstream iss(primera_linea);
-        int Ancho, Alto;
-        char delimiter = ',';
-        string token;
-        if (getline(iss, token, delimiter)) {
-            Ancho = stoi(token);
-        }
-
-        if (getline(iss, token)) {
-            Alto = stoi(token);
-        }
-
-        Mapa mapa(Ancho, Alto);
+    istringstream iss(primera_linea);
+    int Ancho, Alto;
+    char delimiter = ',';
+    string token;
+    if (getline(iss, token, delimiter)) {
+    Ancho = stoi(token);
     }
+
+    if (getline(iss, token)) {
+        Alto = stoi(token);
+    }
+
+    Mapa mapa(Ancho, Alto);
 
     list<string>::iterator itMitad = lista_completa.begin();
     advance(itMitad, lista_completa.size()/2);
@@ -80,7 +78,10 @@ void Juego::jugar() {
         }
 
         Posicion posicion(X, Y);
+        Personaje *punteroAp;
         Personaje p(Nombre, Vida, Ataque, Velocidad, posicion);
+        punteroAp = &p;
+        mapa.agregarPersonaje(punteroAp);
     }
 
     lista2 = list<string>(itMitad, lista_completa.end());
@@ -120,8 +121,11 @@ void Juego::jugar() {
             Y = stoi(token);
         }
 
+        Personaje *punteroAp;
         Posicion posicion(X, Y);
         Personaje p(Nombre, Vida, Ataque, Velocidad, posicion);
+        punteroAp = &p;
+        mapa.agregarPersonaje(punteroAp);
     }
 
     entrada.close();
@@ -136,7 +140,7 @@ int Juego::calcularTurno() {
     return 0;
 }
 
-void Juego::motrarMapa() {
+void Juego::mostrarMapa() {
     // Muestra en consola el mapa del juego con sus personajes
 }
 
