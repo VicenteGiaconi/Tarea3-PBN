@@ -12,4 +12,4 @@ public:
     void set(int, int);
     Posicion(int, int);
 };
-#endif
+#endif 

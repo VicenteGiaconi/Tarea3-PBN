@@ -11,4 +11,4 @@ public:
     void mostrarMapa();
     void combate(Personaje *, Personaje *);
 };
-#endif
+#endif 

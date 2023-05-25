@@ -14,4 +14,4 @@ public:
     void eliminaPersonaje(Personaje *);
     Mapa(int, int);
 };
-#endif
+#endif 

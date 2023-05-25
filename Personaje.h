@@ -20,4 +20,4 @@ public:
     Personaje(string, int, int, int, Posicion);
     ~Personaje();
 };
-#endif
+#endif 
