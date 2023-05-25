@@ -1,1 +1,12 @@
 notas rapidas del trabajo
+
+no se entiende el codigo
+juego lo reice con nombres de variables que se entiendan mejor
+saque el front por que confunde
+los contructores abren las clases
+los destructores las cierran
+el using std solo se pone en el main
+no entiendo las constantes que agregaste en posicion y otras clases; supongo que las agregaste por que todavia el cpp no hace nada 
+creo que el contructor del mapa guarda, los parametros del mapa y que son alto y largo y un tablero que fue hecho conlas dimenciones anteriorores
+esta lista de lista esta hecha por creaMapa() por eso las dos funciones
+estoy avansando en un iterador mas eficiente en juago que haga que no se tenga que repetir el codigo dos veces
