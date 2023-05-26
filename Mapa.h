@@ -1,3 +1,6 @@
+
+#define MAPA_H
+
 #include "Personaje.h"
 
 class Mapa
@@ -11,3 +14,4 @@ public:
     void eliminaPersonaje(Personaje *);
  
 };
+#endif 
