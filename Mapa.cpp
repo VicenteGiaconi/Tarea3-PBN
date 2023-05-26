@@ -1,10 +1,12 @@
 #include <iostream>
 #include "Mapa.h"
 
-using namespace std;
 
-void Mapa::crearMapa() {
-    // Crea el mapa
+
+Mapa::Mapa(int Ancho, int Alto) {
+    ancho = Ancho;
+    alto = Alto;
+    cout << "Se creó un mapa de ancho " << ancho << " y alto " << alto << endl;
 }
 
 void Mapa::agregarPersonaje(Personaje *personaje) {
@@ -15,8 +17,3 @@ void Mapa::eliminaPersonaje(Personaje *personaje) {
     cout << "El personaje " << personaje << " se eliminó del mapa" << endl;
 }
 
-Mapa::Mapa(int Ancho, int Alto) {
-    ancho = Ancho;
-    alto = Alto;
-    cout << "Se creó un mapa de ancho " << ancho << " y alto " << alto << endl;
-}

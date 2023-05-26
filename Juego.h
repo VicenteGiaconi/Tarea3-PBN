@@ -1,5 +1,4 @@
-#ifndef JUEGO_H
-#define JUEGO_H
+
 #include "Personaje.h"
 
 class Juego
@@ -11,4 +10,3 @@ public:
     void mostrarMapa();
     void combate(Personaje *, Personaje *);
 };
-#endif 

@@ -7,35 +7,55 @@
 #include "Mapa.h"
 
 void Juego::jugar() {
-    ifstream entrada;
 
+    // apertura de archivos
+    ifstream entrada;
     entrada.open("soldados.txt");
 
     list<string> lista_completa;
-    list<string> lista1;
-    list<string> lista2;
     string linea;
+    // de archivo a lista
 
     while (getline(entrada, linea)) {
         lista_completa.push_back(linea);
     }
-
-    string primera_linea = lista_completa.front();
-    lista_completa.pop_front();
-
-    istringstream iss(primera_linea);
+    // contador del archivo
+    auto iArc = lista_completa.begin();
+    // coordenadas 
+    string coordenadas = *iArc;
+    // preparacio de las cordenadas
+    istringstream iss(coordenadas);
     int Ancho, Alto;
     char delimiter = ',';
     string token;
     if (getline(iss, token, delimiter)) {
     Ancho = stoi(token);
     }
-
     if (getline(iss, token)) {
         Alto = stoi(token);
     }
-
     Mapa mapa(Ancho, Alto);
+
+    // lectura del ejercito 1
+    advance(iArc, 1); 
+    int n_soldados1 =  stoi(*iArc);
+    // se avansa la cantidad de soldados que tiene el archivo en el ejercito 1
+
+
+
+
+    entrada.close();
+}
+
+
+
+
+    /*
+    // para que sirben
+    list<string> lista1;
+    list<string> lista2;
+
+
 
     list<string>::iterator itMitad = lista_completa.begin();
     advance(itMitad, lista_completa.size()/2);
@@ -147,3 +167,4 @@ void Juego::mostrarMapa() {
 void Juego::combate(Personaje *P1, Personaje *P2) {
     // Simula la pelea entre 2 personajes
 }
+*/
