@@ -1,8 +1,7 @@
 
 #include "Personaje.h"
 
-class Juego
-{
+class Juego{
 public:
     void jugar();
     void chequearGanador();

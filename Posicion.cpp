@@ -1,20 +1,19 @@
 #include "Posicion.h"
 
-Posicion::Posicion(int x, int y)
-{
-    X = x;
-    Y = y;
+Posicion::Posicion(int X, int Y){
+    x = X;
+    y = Y;
 }
 
 int Posicion::getX() {
-    return X;
+    return x;
 }
 
 int Posicion::getY() {
-    return Y;
+    return y;
 }
 
-void Posicion::set(int x, int y) {
-    X = x;
-    Y = y;
+void Posicion::set(int X, int Y) {
+    x = X;
+    y = Y;
 }

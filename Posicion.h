@@ -4,12 +4,16 @@
 class Posicion
 {
 private:
-    int X;
-    int Y;
+    int x;
+    int y;
 public:
     int getX();
     int getY();
     void set(int, int);
     Posicion(int, int);
 };
-#endif 
+#endif
+
+
+// no entiendo las cosas en morado
+// unica clase con pribado por ahora por que tiene metodos para sacar los datos

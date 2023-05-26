@@ -10,3 +10,11 @@ no entiendo las constantes que agregaste en posicion y otras clases; supongo que
 creo que el contructor del mapa guarda, los parametros del mapa y que son alto y largo y un tablero que fue hecho conlas dimenciones anteriorores
 esta lista de lista esta hecha por creaMapa() por eso las dos funciones
 estoy avansando en un iterador mas eficiente en juago que haga que no se tenga que repetir el codigo dos veces
+
+personajes y re-orden 
+cambiar nombre de las variables en las clases
+hacer todas las clases publicas
+administrar responsabilidades
+todas las variables en ingles
+todos los parametros en mayuscula
+todas las variables en minuscula
