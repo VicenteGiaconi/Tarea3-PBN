@@ -1,5 +1,6 @@
 
 #define MAPA_H
+
 #include "Personaje.h"
 
 class Mapa
@@ -7,11 +8,10 @@ class Mapa
 private:
     int ancho;
     int alto;
-
 public:
-    void crearMapa();
+    Mapa(int, int);                         // contructor 
     void agregarPersonaje(Personaje *);
     void eliminaPersonaje(Personaje *);
-    Mapa(int, int);
+ 
 };
 #endif 

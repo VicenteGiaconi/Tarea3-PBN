@@ -1,5 +1,4 @@
-#ifndef JUEGO_H
-#define JUEGO_H
+
 #include "Personaje.h"
 
 class Juego
