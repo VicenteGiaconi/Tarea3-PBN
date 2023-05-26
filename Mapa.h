@@ -5,10 +5,10 @@
 
 class Mapa
 {
-private:
-    int ancho;
-    int alto;
-public:
+public:                                     // despues pribado
+    int broad;
+    int high;
+                                            // despues publico
     Mapa(int, int);                         // contructor 
     void agregarPersonaje(Personaje *);
     void eliminaPersonaje(Personaje *);

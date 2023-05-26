@@ -3,10 +3,10 @@
 
 
 
-Mapa::Mapa(int Ancho, int Alto) {
-    ancho = Ancho;
-    alto = Alto;
-    cout << "Se creó un mapa de ancho " << ancho << " y alto " << alto << endl;
+Mapa::Mapa(int Broad, int High) {
+    broad = Broad;
+    high = High;
+    cout << "Se creó un mapa de ancho " << broad << " y alto " << high << endl;
 }
 
 void Mapa::agregarPersonaje(Personaje *personaje) {

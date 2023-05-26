@@ -7,13 +7,13 @@ using namespace std;
 
 class Personaje
 {
-private:
-    string vnombre;
-    int vvida;
-    int vataque;
-    int vvelocidad;
-    Posicion vposicion;
-public:
+public:                                             // despues pribado
+    string name;
+    int health;
+    int attack;
+    int velocity;
+    Posicion position;
+                                                    // despues publico
     int ataque();
     void recibirAtaque();
     void moverse(int, int);
