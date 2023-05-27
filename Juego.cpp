@@ -79,19 +79,14 @@ void Juego::jugar() {
         if (getline(linea, token, delimiter)) {
             y = stoi(token);
         }
-
-        Posicion pos(x,y);
-        Personaje p(nombre, vida, ataque, velocidad, pos);
-        cout<<p.name <<endl;
+        Posicion place(x,y);
+        Personaje p(nombre, vida, ataque, velocidad, place);
+        cout<<p.x<<endl;
         
-        /*
-        Posicion posicion(X, Y);
-        Personaje *punteroAp;
-        Personaje p(Nombre, Vida, Ataque, Velocidad, posicion);
-        punteroAp = &p;
-        mapa.agregarPersonaje(punteroAp);
+        //punteroAp = &p;
+        //mapa.agregarPersonaje(punteroAp);
     
-        */
+    
  
     }
 
