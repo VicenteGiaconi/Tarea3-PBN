@@ -1,16 +1,17 @@
 #ifndef POSICION_H
 #define POSICION_H
+#include "Posicion.h"
 
-class Posicion
-{
-private:
+class Posicion{
+public:                      // private despues
     int x;
     int y;
-public:
+                            // public despues
+    Posicion(int, int);
     int getX();
     int getY();
     void set(int, int);
-    Posicion(int, int);
+    
 };
 #endif
 

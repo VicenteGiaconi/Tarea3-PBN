@@ -1,8 +1,8 @@
 CC=g++
 exe=p
 
-$(exe): Juego.o Mapa.o Personaje.o Posicion.o main.o
-	$(CC) Juego.o Mapa.o Personaje.o Posicion.o main.o -o $(exe)
+$(exe): Mapa.o Posicion.o Personaje.o Juego.o main.o
+	$(CC) Mapa.o Posicion.o Personaje.o Juego.o main.o -o $(exe)
 
 main.o: main.cpp
 	$(CC) -c main.cpp -o main.o

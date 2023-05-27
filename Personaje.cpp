@@ -6,28 +6,30 @@
 using namespace std;
 
 
-Personaje::Personaje(string Name, int Health, int Attack, int Velocity , Posicion Pos){
+
+Personaje::Personaje(string Name, int Health, int Attack, int Velocity, Posicion Place) {
     name = Name;
     health = Health;
     attack = Attack;
     velocity = Velocity;
-    position = Pos; 
-
-    //cout << "Se creó a " << name  << " en las coordenadas (" << position.getX() << "," << position.getY() << ")" << endl;
+    x = Place.getX();
+    y = Place.getY();
 }
+
 
 int Personaje::ataque() {
     return attack;
 }
 
 void Personaje::recibirAtaque() {
-
+    // Lógica para recibir un ataque
 }
 
 void Personaje::moverse(int X, int Y) {
-    // Se mueve a las coordenadas nuevas
+    // Lógica para moverse a las nuevas coordenadas X e Y
 }
 
 Personaje::~Personaje() {
-    cout << "Se eliminó " << name  << endl;
+    cout << "Se eliminó " << name << endl;
 }
+

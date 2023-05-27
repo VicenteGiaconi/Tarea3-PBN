@@ -5,19 +5,20 @@
 
 using namespace std;
 
-class Personaje
-{
+class Personaje {
 public:                                             // despues pribado
     string name;
     int health;
     int attack;
     int velocity;
-    Posicion position;
+    int x;
+    int y;
+
                                                     // despues publico
     int ataque();
     void recibirAtaque();
     void moverse(int, int);
-    Personaje(string, int, int, int, Posicion);
+    Personaje(string name , int health, int attack, int velocity, Posicion Place);
     ~Personaje();
 };
 #endif 
