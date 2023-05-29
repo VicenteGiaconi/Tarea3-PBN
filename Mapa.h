@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Personaje.h"
 
-
 class Mapa{
 public:                                     // despues pribado
     int broad;
@@ -14,3 +13,4 @@ public:                                     // despues pribado
     void eliminaPersonaje(Personaje *);
  
 };
+
