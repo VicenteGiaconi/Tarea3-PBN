@@ -14,3 +14,4 @@ public:                                     // despues pribado
     void eliminaPersonaje(Personaje);
  
 };
+
