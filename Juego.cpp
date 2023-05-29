@@ -79,10 +79,10 @@ void Juego::jugar() {
         if (getline(linea, token, delimiter)) {
             y = stoi(token);
         }
-        Posicion place(x,y);
-        Personaje p(nombre, vida, ataque, velocidad, place);
-        cout<<p.x<<endl;
-        
+
+        //Personaje p(nombre, vida, ataque, velocidad, x, y); // proximamente se le va a tener que poner una variable que diga de que ejercito es
+        //cout<<p.getX()<<","<<p.getY()<<endl;
+
         //punteroAp = &p;
         //mapa.agregarPersonaje(punteroAp);
     

@@ -22,3 +22,9 @@ todas las variables en minuscula
 personaje con posicion
 se adapta la clse personaje para aceptar una clase posicion 
 lo logre
+
+generador de posicion, personajes, tablero listos
+herencia en posicion y personaje
+posicion con herencia
+hice un tablero que se llena de numeros para probar las dimenciones del tablero
+ya se creo el tablero con objetos de tipo personaje que se llaman vacio -- para cuando se muetre el tamblero se tendra que detectar la gente que esta vacia 
