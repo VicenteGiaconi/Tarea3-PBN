@@ -1,17 +1,16 @@
-
-#define MAPA_H
-
+//LISTO
+#include <vector>
+#include <iostream>
 #include "Personaje.h"
 
-class Mapa
-{
+class Mapa{
 public:                                     // despues pribado
     int broad;
     int high;
-                                            // despues publico
+    vector < vector < Personaje >> matrix;
+                                             // despues publico
     Mapa(int, int);                         // contructor 
-    void agregarPersonaje(Personaje *);
-    void eliminaPersonaje(Personaje *);
+    void agregarPersonaje(Personaje);
+    void eliminaPersonaje(Personaje);
  
 };
-#endif 
