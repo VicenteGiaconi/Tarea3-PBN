@@ -5,11 +5,12 @@
 
 using namespace std;
 
-Personaje::Personaje(string Name, int Health, int Attack, int Velocity, int X, int Y) : Posicion(X, Y){
+Personaje::Personaje(string Name, int Health, int Attack, int Velocity,int Army, int X, int Y) : Posicion(X, Y){  // arrmy es para poder diferenciar de que ejercito es
     name = Name;
     health = Health;
     attack = Attack;
     velocity = Velocity;
+    army = Army;
 }
 
 int Personaje::ataque() {

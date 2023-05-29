@@ -28,3 +28,8 @@ herencia en posicion y personaje
 posicion con herencia
 hice un tablero que se llena de numeros para probar las dimenciones del tablero
 ya se creo el tablero con objetos de tipo personaje que se llaman vacio -- para cuando se muetre el tamblero se tendra que detectar la gente que esta vacia 
+
+clase Mapa lista archivo .cpp y .h listos
+hay que modificar los parametros que reciban las funciones para que reciban punteros
+
+
