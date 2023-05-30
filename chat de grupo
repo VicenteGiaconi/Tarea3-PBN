@@ -32,4 +32,5 @@ ya se creo el tablero con objetos de tipo personaje que se llaman vacio -- para 
 clase Mapa lista archivo .cpp y .h listos
 hay que modificar los parametros que reciban las funciones para que reciban punteros
 
+justo antes de junta
 

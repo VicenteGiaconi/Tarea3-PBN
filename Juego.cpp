@@ -5,9 +5,7 @@
 #include <sstream>
 
 #include "Juego.h"
-
 #include "Mapa.h"
-
 #include "Personaje.h"
 
 void Juego::jugar() {
