@@ -3,7 +3,7 @@
 #include "Personaje.h"
 #include "Mapa.h"
 
-class Juego {
+class Juego{
 public:
     Mapa *mapa;
     void jugar();

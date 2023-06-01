@@ -1,17 +1,18 @@
+//LISTO
 #pragma once
 
-#include <string>
 #include <vector>
-
+#include <iostream>
 #include "Personaje.h"
 
-class Mapa {
-public:
+class Mapa{
+public:                                     // despues pribado
     int broad;
     int high;
-    std::vector <std::vector <Personaje*>> matrix;
-
-    Mapa(int, int);
-    void agregarPersonaje(Personaje *);
-    void eliminaPersonaje(Personaje *);
+    vector < vector < Personaje >> matrix;
+                                             // despues publico
+    Mapa(int, int);                         // contructor 
+    void agregarPersonaje(Personaje);
+    void eliminaPersonaje(Personaje);
+ 
 };

@@ -1,8 +1,11 @@
-#include "Personaje.h"
-
+#include <iostream>
 #include <string>
+#include "Personaje.h"
+#include "Posicion.h"
 
-Personaje::Personaje(std::string Name, int Health, int Attack, int Velocity,int Army, int X, int Y) : Posicion(X, Y){  // army es para poder diferenciar de que ejercito es
+using namespace std;
+
+Personaje::Personaje(string Name, int Health, int Attack, int Velocity,int Army, int X, int Y) : Posicion(X, Y){  // arrmy es para poder diferenciar de que ejercito es
     name = Name;
     health = Health;
     attack = Attack;
@@ -11,11 +14,11 @@ Personaje::Personaje(std::string Name, int Health, int Attack, int Velocity,int 
 }
 
 int Personaje::ataque() {
-    return attack;          // Retorna el ataque de cada personaje
+    return attack;
 }
 
-void Personaje::recibirAtaque(Personaje *Enemigo) {
-    health - Enemigo->attack;          //Toma el ataque del enemigo y se lo resta a la vida
+void Personaje::recibirAtaque() {
+    // Lógica para recibir un ataque
 }
 
 void Personaje::moverse(int X, int Y) {
@@ -24,3 +27,4 @@ void Personaje::moverse(int X, int Y) {
 
 Personaje::~Personaje() {
 }
+
