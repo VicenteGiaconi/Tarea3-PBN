@@ -78,7 +78,7 @@ void Juego::jugar() {
             if (getline(linea, token, delimiter)) {
                 y = stoi(token);
             }
-            Personaje p(nombre, vida, ataque, velocidad, e, x, y);
+            Personaje *p = new Personaje(nombre, vida, ataque, velocidad, e, x, y);
             mapa->agregarPersonaje(p);
 
         }
@@ -100,7 +100,7 @@ void Juego::mostrarMapa() {
     // mustra el tablero recien hecho
     for(int l1 = 0; l1 < mapa->high; l1++){
         for (int a1 = 0; a1 < mapa->broad; a1++){
-            cout<< mapa->matrix[l1][a1].name <<" ";
+            cout<< mapa->matrix[l1][a1]->name <<" ";
         }
     cout <<endl;
     }

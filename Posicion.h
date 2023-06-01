@@ -1,11 +1,10 @@
 #pragma once
 
 
-class Posicion{
-public:                      // private despues
+class Posicion{                     // private despues
     int x;
     int y;
-                            // public despues
+public:                            // public despues
     Posicion(int, int);
     int getX();
     int getY();
