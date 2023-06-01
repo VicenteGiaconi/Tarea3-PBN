@@ -1,5 +1,4 @@
-#ifndef PERSONAJE_H
-#define PERSONAJE_H
+#pragma once
 #include <string>
 #include "Posicion.h"
 
@@ -21,4 +20,3 @@ public:                                             // despues privado
     Personaje(string name , int health, int attack, int velocity,int army, int x, int y);
     ~Personaje();
 };
-#endif 

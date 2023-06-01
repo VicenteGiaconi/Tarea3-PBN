@@ -1,6 +1,5 @@
-#ifndef POSICION_H
-#define POSICION_H
-#include "Posicion.h"
+#pragma once
+
 
 class Posicion{
 public:                      // private despues
@@ -13,7 +12,6 @@ public:                      // private despues
     void set(int, int);
     
 };
-#endif
 
 
 // no entiendo las cosas en morado

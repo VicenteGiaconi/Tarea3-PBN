@@ -1,12 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <list>
+#include <vector>
 #include <sstream>
 
 #include "Juego.h"
 #include "Mapa.h"
-#include "Personaje.h"
 
 void Juego::jugar() {
 
@@ -14,7 +13,7 @@ void Juego::jugar() {
     ifstream entrada;
     entrada.open("soldados.txt");
 
-    list<string> lista_completa;
+    vector<string> lista_completa;
     string linea;
     // de archivo a lista
 
@@ -36,7 +35,7 @@ void Juego::jugar() {
     if (getline(iss, token)) {
         Alto = stoi(token);
     }
-    Mapa mapa(Ancho, Alto);
+    mapa = new Mapa(Ancho, Alto);
 
     for (int e = 1; e <= 2; e++){
 
@@ -80,7 +79,7 @@ void Juego::jugar() {
                 y = stoi(token);
             }
             Personaje p(nombre, vida, ataque, velocidad, e, x, y);
-            mapa.agregarPersonaje(p);
+            mapa->agregarPersonaje(p);
 
         }
     }
@@ -97,6 +96,17 @@ int Juego::calcularTurno() {
 }
 
 void Juego::mostrarMapa() {
+
+    // mustra el tablero recien hecho
+    for(int l1 = 0; l1 < mapa->high; l1++){
+        for (int a1 = 0; a1 < mapa->broad; a1++){
+            cout<< mapa->matrix[l1][a1].name <<" ";
+        }
+    cout <<endl;
+    }
+    cout <<endl;
+    cout <<endl;
+    cout <<endl;
     // Muestra en consola el mapa del juego con sus personajes
 }
 
