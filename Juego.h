@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Personaje.h"
 #include "Mapa.h"
 
 class Juego{
 public:
-    Mapa *mapa;
+    Mapa * mapa;
+    Posicion * pos;
     void jugar();
     void chequearGanador();
     int calcularTurno();

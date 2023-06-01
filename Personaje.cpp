@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "Personaje.h"
-#include "Posicion.h"
 
 using namespace std;
 
@@ -17,12 +16,12 @@ int Personaje::ataque() {
     return attack;
 }
 
-void Personaje::recibirAtaque() {
-    // Lógica para recibir un ataque
+void Personaje::recibirAtaque(Personaje *enemigo) {
+    health = health -enemigo->attack;
 }
 
 void Personaje::moverse(int X, int Y) {
-    // Lógica para moverse a las nuevas coordenadas X e Y
+    
 }
 
 Personaje::~Personaje() {

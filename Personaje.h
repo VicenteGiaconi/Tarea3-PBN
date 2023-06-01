@@ -11,11 +11,9 @@ public:                                             // despues privado
     int attack;
     int velocity;
     int army;
-
-
                                                     // despues publico
     int ataque();
-    void recibirAtaque();
+    void recibirAtaque(Personaje *);
     void moverse(int, int);
     Personaje(string name , int health, int attack, int velocity,int army, int x, int y);
     ~Personaje();
