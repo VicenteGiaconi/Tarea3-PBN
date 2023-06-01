@@ -1,24 +1,20 @@
-#ifndef PERSONAJE_H
-#define PERSONAJE_H
-#include <string>
+#pragma once
+
 #include "Posicion.h"
 
-using namespace std;
+#include <string>
 
-class Personaje : public Posicion{
-public:                                             // despues privado
-    string name;
+class Personaje: public Posicion{
+public:
+    std::string name;
     int health;
     int attack;
     int velocity;
     int army;
 
-
-                                                    // despues publico
     int ataque();
-    void recibirAtaque();
+    void recibirAtaque(Personaje *);
     void moverse(int, int);
-    Personaje(string name , int health, int attack, int velocity,int army, int x, int y);
+    Personaje(std::string name , int health, int attack, int velocity,int army, int x, int y);
     ~Personaje();
 };
-#endif 

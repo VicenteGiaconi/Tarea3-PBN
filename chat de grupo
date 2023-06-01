@@ -32,4 +32,7 @@ ya se creo el tablero con objetos de tipo personaje que se llaman vacio -- para 
 clase Mapa lista archivo .cpp y .h listos
 hay que modificar los parametros que reciban las funciones para que reciban punteros
 
+ahora las listas de los ejercitos se hacer con arrays en vez de vectores, y están hechas de punteros de Personaje
+la matriz de mapa todavía funciona con vectores, pero ahora acepta punteros
+ahora se incluyn las flags en el makefile
 

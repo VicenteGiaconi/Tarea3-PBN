@@ -1,12 +1,12 @@
 #include <iostream>
+
 #include "Juego.h"
 
 using namespace std;
 
-int main(int argc, char **argv) {
-
+int main() {
     Juego juego;
     juego.jugar();
-    
+
     return 0;
 }
