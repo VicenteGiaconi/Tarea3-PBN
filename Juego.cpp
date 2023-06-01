@@ -134,6 +134,7 @@ void Juego::mostrarMapa() {
         }
         cout <<endl;
     } 
+
 }
 
 void Juego::combate(Personaje *P1, Personaje *P2) {
