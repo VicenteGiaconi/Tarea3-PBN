@@ -4,7 +4,8 @@
 Mapa::Mapa(int Broad, int High){
     broad = Broad; // ancho
     high = High;   // largo
-    Personaje *Vacio = new Personaje(".....",0,0,0,0,0,0);
+    Personaje *Vacio = new Personaje("",0,0,0,0,0,0);
+
     vector < Personaje*> v;
     for(int i = 0; i < high; i++){
         for (int a1 = 0; a1 < Broad; a1++){
