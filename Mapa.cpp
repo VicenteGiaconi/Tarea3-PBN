@@ -4,8 +4,8 @@
 Mapa::Mapa(int Broad, int High){
     broad = Broad; // ancho
     high = High;   // largo
-    Personaje Vacio (".....",0,0,0,0,0,0);
-    vector < Personaje > v;
+    Personaje *Vacio = new Personaje("",0,0,0,0,0,0);
+    vector < Personaje*> v;
     for(int i = 0; i < high; i++){
         for (int a1 = 0; a1 < Broad; a1++){
            v.push_back(Vacio);
@@ -14,13 +14,12 @@ Mapa::Mapa(int Broad, int High){
     }
 }
 
-void Mapa::agregarPersonaje(Personaje person){
-    matrix[person.getY()][person.getX()] = person;
+void Mapa::agregarPersonaje(Personaje *person){
+    matrix[person->getY()][person->getX()] = person;
 }
 
-void Mapa::eliminaPersonaje(Personaje person) {
-    Personaje Vacio (".....",0,0,0,0,0,0);
-    matrix[person.getY()][person.getX()] = Vacio;
+void Mapa::eliminaPersonaje(Personaje *person) {
+    matrix[person->getY()][person->getX()] = Vacio;
 }
 
 /*

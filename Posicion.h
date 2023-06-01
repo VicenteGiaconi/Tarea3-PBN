@@ -1,19 +1,16 @@
-#ifndef POSICION_H
-#define POSICION_H
-#include "Posicion.h"
+#pragma once
 
-class Posicion{
-public:                      // private despues
+
+class Posicion{                     // private despues
     int x;
     int y;
-                            // public despues
+public:                            // public despues
     Posicion(int, int);
     int getX();
     int getY();
     void set(int, int);
     
 };
-#endif
 
 
 // no entiendo las cosas en morado

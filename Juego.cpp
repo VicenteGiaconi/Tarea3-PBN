@@ -1,12 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <list>
+#include <vector>
 #include <sstream>
 
 #include "Juego.h"
 #include "Mapa.h"
-#include "Personaje.h"
 
 void Juego::jugar() {
 
@@ -14,7 +13,7 @@ void Juego::jugar() {
     ifstream entrada;
     entrada.open("soldados.txt");
 
-    list<string> lista_completa;
+    vector<string> lista_completa;
     string linea;
     // de archivo a lista
 
@@ -36,7 +35,7 @@ void Juego::jugar() {
     if (getline(iss, token)) {
         Alto = stoi(token);
     }
-    Mapa mapa(Ancho, Alto);
+    mapa = new Mapa(Ancho, Alto);
 
     for (int e = 1; e <= 2; e++){
 
@@ -79,8 +78,8 @@ void Juego::jugar() {
             if (getline(linea, token, delimiter)) {
                 y = stoi(token);
             }
-            Personaje p(nombre, vida, ataque, velocidad, e, x, y);
-            mapa.agregarPersonaje(p);
+            Personaje *p = new Personaje(nombre, vida, ataque, velocidad, e, x, y);
+            mapa->agregarPersonaje(p);
 
         }
     }
@@ -97,7 +96,44 @@ int Juego::calcularTurno() {
 }
 
 void Juego::mostrarMapa() {
-    // Muestra en consola el mapa del juego con sus personajes
+    string interior = "     ";
+    for (int a2 = 0; a2 < mapa->broad; a2++){
+        cout<<"_______";
+    }
+    cout <<endl;
+
+    for(int l1 = 0; l1 < mapa->high; l1++){
+        for (int a1 = 0; a1 < mapa->broad; a1++){
+            // desde aca esta el nombre seleccionado
+            interior = "     ";
+            int largo_nombre = mapa->matrix[l1][a1]->name.size();
+            for (int i = 0; i<5;i++){
+                if (i<largo_nombre){
+                    interior[i] = mapa->matrix[l1][a1]->name[i];
+                }
+            }
+            cout<<"|"<< interior<<"|";
+        }
+        cout <<endl;
+        for (int a2 = 0; a2 < mapa->broad; a2++){
+            interior = "_____";
+            cout<<"|";
+            for (int i2 = 0; i2<5 ;i2++){
+                if (i2 == 2){
+                    if (mapa->matrix[l1][a2]->army == 0){
+                        cout<<"_";
+                    } else {
+                        cout<<mapa->matrix[l1][a2]->army;
+                    }
+                } else{
+                    cout<<"_";
+                }
+            }
+
+            cout<<"|";
+        }
+        cout <<endl;
+    } 
 }
 
 void Juego::combate(Personaje *P1, Personaje *P2) {
