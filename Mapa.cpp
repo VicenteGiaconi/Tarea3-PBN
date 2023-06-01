@@ -1,10 +1,12 @@
 //LISTO
 #include "Mapa.h"
+#include "Posicion.h"
 
 Mapa::Mapa(int Broad, int High){
     broad = Broad; // ancho
     high = High;   // largo
-    Personaje *Vacio = new Personaje("",0,0,0,0,0,0);
+    Posicion pos (0,0);
+    Personaje *Vacio = new Personaje("",0,0,0,0,pos);
     vector < Personaje*> v;
     for(int i = 0; i < high; i++){
         for (int a1 = 0; a1 < Broad; a1++){
@@ -15,11 +17,11 @@ Mapa::Mapa(int Broad, int High){
 }
 
 void Mapa::agregarPersonaje(Personaje *person){
-    matrix[person->getY()][person->getX()] = person;
+    matrix[person->y][person->x] = person;
 }
 
 void Mapa::eliminaPersonaje(Personaje *person) {
-    matrix[person->getY()][person->getX()] = Vacio;
+    matrix[person->y][person->x] = Vacio;
 }
 
 /*

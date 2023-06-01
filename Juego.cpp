@@ -78,7 +78,8 @@ void Juego::jugar() {
             if (getline(linea, token, delimiter)) {
                 y = stoi(token);
             }
-            Personaje *p = new Personaje(nombre, vida, ataque, velocidad, e, x, y);
+            Posicion pos(x,y);
+            Personaje *p = new Personaje(nombre, vida, ataque, velocidad, e, pos);
             mapa->agregarPersonaje(p);
 
         }
