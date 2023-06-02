@@ -282,6 +282,9 @@ int Juego::calcularTurno() {
 
     // Aqui se define hacia que lado se mueve el personaje y como actua si choca con un enemigo o un amigo
     /*
+
+    // Aqui se define hacia que lado se mueve el personaje y como actua si choca con un enemigo o un amigo
+
     if (pvE1 > pvE2) { // Si la velocidad promedio del ejercito1 es mayor a la del ejercito2, se mueven primero los del ejercito1
         if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
             if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]->army !=1) {
