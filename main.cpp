@@ -12,7 +12,9 @@ int main(int argc, char **argv) {
     while (counter < 44) { // Da una pura vuelta a las listas
         juego.mostrarMapa();
         juego.calcularTurno();
+        juego.chequearGanador();
         counter++;
     }
+    
     return 0;
 }

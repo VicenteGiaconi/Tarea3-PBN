@@ -120,7 +120,9 @@ void Juego::jugar() {
 }
 
 void Juego::chequearGanador() {
-    // Chequea si ha ganado uno de los ejercitos
+    for (int i = 0; i < n_soldados1;i++) {
+        cout  << ejercito1[i]->name << endl;
+    }
 }
 
 int Juego::calcularTurno() {
@@ -144,45 +146,34 @@ int Juego::calcularTurno() {
     Posicion mov3(cx,cy); // movimiento predeterminado 3
 
     if (cx == centro_X && cy ==centro_Y){         //personaje esta en el centro
-        cout<<moviendo->name << " no se mueve " <<endl;
     } else if(cx < centro_X && cy < centro_Y){    // esta en el cuadrante 1
-        cout<<moviendo->name << " cuadrante 1" <<endl;
         mov1.set(cx+1,cy+1);
         mov2.set(cx,cy+1);
         mov3.set(cx+1,cy);
     } else if (cx == centro_X && cy < centro_Y){  // esta en el cuadrante 2
-        cout<<moviendo->name << " cuadrante 2" <<endl;
         mov1.set(cx,cy+1);
     } else if (cx >centro_X && cy < centro_Y){    // esta en el cuadrante 3
-        cout<<moviendo->name << " cuadrante 3" <<endl;
         mov1.set(cx-1,cy+1);
         mov2.set(cx,cy+1);
         mov3.set(cx-1,cy);
     } else if (cx < centro_X && cy == centro_Y){  // esta en el cuadrante 4
-        cout<<moviendo->name << " cuadrante 4" <<endl;
         mov1.set(cx+1,cy);
     } else if (cx >centro_X && cy == centro_Y){    // esta en el cuadrante 5
-        cout<<moviendo->name << " cuadrante 5" <<endl;
         mov1.set(cx-1,cy);
     } else if (cx <centro_X && cy > centro_Y){    // esta en el cuadrante 6
-        cout<<moviendo->name << " cuadrante 6" <<endl;
         mov1.set(cx+1,cy-1);
         mov2.set(cx,cy-1);
         mov3.set(cx+1,cy);
     } else if (cx ==centro_X && cy > centro_Y){    // esta en el cuadrante 7
-        cout<<moviendo->name << " cuadrante 7" <<endl;
         mov1.set(cx,cy);
     } else if (cx >centro_X && cy > centro_Y){    // esta en el cuadrante 8
-        cout<<moviendo->name << " cuadrante 8" <<endl;
         mov1.set(cx-1,cy-1);
         mov2.set(cx,cy-1);
         mov3.set(cx-1,cy);
     }
-    cout<<mapa->matrix[cy][cx]->x<<endl;
     // verificando mov1
     int camino = 0; // verifica si el personaje ya se movio
     if (mapa->matrix[mov1.getY()][mov1.getX()]->army==0){
-        cout<<"esta vacio se mueve para aca"<<endl;
         moviendo->moverse(mov1.getX(), mov1.getY());
         // cambiar la lista
         if (count_e == 1){ // esta en el ejercito 1
@@ -197,9 +188,7 @@ int Juego::calcularTurno() {
 
         camino = 1;
     } else if (mapa->matrix[mov1.getY()][mov1.getX()]->army==mapa->matrix[cy][cx]->army) {
-        cout<<"son amigos"<<endl;
     } else {
-        cout<<"son enemigos va al combate"<<endl;
         combate(moviendo, mapa->matrix[mov1.getY()][mov1.getX()]);
         camino = 1;
     }
@@ -207,7 +196,6 @@ int Juego::calcularTurno() {
     // verificando mov2
     if (camino==0){
         if (mapa->matrix[mov2.getY()][mov2.getX()]->army==0){
-            cout<<"esta vacio se mueve para aca"<<endl;
             moviendo->moverse(mov2.getX(), mov2.getY());
             if (count_e == 1){ // esta en el ejercito 1
                 ejercito1[c_eq1]->x = mov2.getX();
@@ -218,9 +206,7 @@ int Juego::calcularTurno() {
             }
             camino = 1;
         } else if (mapa->matrix[mov2.getY()][mov2.getX()]->army==mapa->matrix[cy][cx]->army) {
-            cout<<"son amigos"<<endl;
         } else {
-            cout<<"son enemigos va al combate"<<endl;
             combate(moviendo, mapa->matrix[mov2.getY()][mov2.getX()]);
             camino = 1;
         }
@@ -229,7 +215,6 @@ int Juego::calcularTurno() {
     // verificando mov3
     if (camino==0){
         if (mapa->matrix[mov3.getY()][mov3.getX()]->army==0){
-            cout<<"esta vacio se mueve para aca"<<endl;
             moviendo->moverse(mov3.getX(), mov3.getY());
             if (count_e == 1){ // esta en el ejercito 1
                 ejercito1[c_eq1]->x = mov3.getX();
@@ -240,9 +225,7 @@ int Juego::calcularTurno() {
             }
             camino = 1;
         } else if (mapa->matrix[mov3.getY()][mov3.getX()]->army==mapa->matrix[cy][cx]->army) {
-            cout<<"son amigos"<<endl;
         } else {
-            cout<<"son enemigos va al combate"<<endl;
             combate(moviendo, mapa->matrix[mov3.getY()][mov3.getX()]);
             camino = 1;
         }
@@ -613,6 +596,9 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
             cout << "Murio uno del equipo " << P1->army << endl;
         }
         cout << "Combate finalizado, ha ganado " << P2->name << P2->army << endl;
+        if (P1->army = 1) {
+
+        } else if 
         mapa->eliminaPersonaje(P1);
         
     } else if (P2->health == 0) {
@@ -623,6 +609,7 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
             cout << "Murio uno del equipo " << P2->army << endl;
         }
         cout << "Combate finalizado, ha ganado " << P1->name << P1->army << endl;
+        
         mapa->eliminaPersonaje(P2);
         P1->moverse(P2->x, P2->y);
     }
