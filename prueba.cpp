@@ -1,7 +1,7 @@
 
 #include <vector>
 #include <iostream>
-#incl
+#include <Personaje.h>
 using namespace std;
 int main() {
     // Declarar una lista de listas utilizando std::vector

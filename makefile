@@ -1,8 +1,9 @@
 CC=g++
 exe=p
+flags=-Wall -Wextra -Wundef -Werror -Wuninitialized -Winit-self
 
 $(exe): Mapa.o Posicion.o Personaje.o Juego.o main.o
-	$(CC) Mapa.o Posicion.o Personaje.o Juego.o main.o -o $(exe)
+	$(CC) Mapa.o Posicion.o Personaje.o Juego.o main.o -o $(exe) $(flags)
 
 main.o: main.cpp
 	$(CC) -c main.cpp -o main.o

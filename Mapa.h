@@ -12,7 +12,8 @@ public:                                     // despues pribado
     Personaje *Vacio;
     vector < vector < Personaje*>> matrix;
                                              // despues publico
-    Mapa(int, int);                         // contructor 
+    Mapa(int, int);                         // contructor
+    ~Mapa();
     void agregarPersonaje(Personaje *);
     void eliminaPersonaje(Personaje *);
  
