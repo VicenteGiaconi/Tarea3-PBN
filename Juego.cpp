@@ -102,10 +102,20 @@ void Juego::jugar() {
         svE1 = svE1 + ejercito1[i]->velocity;
         svE2 = svE2 + ejercito2[i]->velocity;
     }
+
     pvE1 = svE1/n_soldados1;
     pvE2 = svE2/n_soldados1;
-    entrada.close();
-    
+    // se setean los contadores para poder jugar despues
+    // se seta ell qequipo que va primero
+
+    if (pvE1<pvE2){
+        count_e = 2;
+    } else{
+        count_e = 1; // por defecto se mueve primero el primer ejercito si los dos promedios son iguales
+    }
+    c_eq1=0;      
+    c_eq2=0;
+    turno=0;     
     entrada.close();
 }
 
@@ -114,7 +124,171 @@ void Juego::chequearGanador() {
 }
 
 int Juego::calcularTurno() {
+    Personaje *moviendo; 
+    turno++;
+
+    // seleccion del personaje qe le corresponde moverse
+    // aca se deviera de agregar si es que esta muerto o no el personaje
+    if (count_e == 2){ // se mueve un personaje del ejercito 2
+        moviendo = ejercito2[c_eq2];
+    } else{
+        moviendo = ejercito1[c_eq1];
+    }
+
+    // revison del cuadrante
+    int cx = moviendo-> x;
+    int cy = moviendo-> y;
+    int origin = 0;
+    Posicion mov1(cx,cy); // movimiento predeterminado 1
+    Posicion mov2(cx,cy); // movimiento predeterminado 2
+    Posicion mov3(cx,cy); // movimiento predeterminado 3
+
+    if (cx == centro_X && cy ==centro_Y){         //personaje esta en el centro
+        cout<<moviendo->name << " no se mueve " <<endl;
+    } else if(cx < centro_X && cy < centro_Y){    // esta en el cuadrante 1
+        cout<<moviendo->name << " cuadrante 1" <<endl;
+        mov1.set(cx+1,cy+1);
+        mov2.set(cx,cy+1);
+        mov3.set(cx+1,cy);
+    } else if (cx == centro_X && cy < centro_Y){  // esta en el cuadrante 2
+        cout<<moviendo->name << " cuadrante 2" <<endl;
+        mov1.set(cx,cy+1);
+    } else if (cx >centro_X && cy < centro_Y){    // esta en el cuadrante 3
+        cout<<moviendo->name << " cuadrante 3" <<endl;
+        mov1.set(cx-1,cy+1);
+        mov2.set(cx,cy+1);
+        mov3.set(cx-1,cy);
+    } else if (cx < centro_X && cy == centro_Y){  // esta en el cuadrante 4
+        cout<<moviendo->name << " cuadrante 4" <<endl;
+        mov1.set(cx+1,cy);
+    } else if (cx >centro_X && cy == centro_Y){    // esta en el cuadrante 5
+        cout<<moviendo->name << " cuadrante 5" <<endl;
+        mov1.set(cx-1,cy);
+    } else if (cx <centro_X && cy > centro_Y){    // esta en el cuadrante 6
+        cout<<moviendo->name << " cuadrante 6" <<endl;
+        mov1.set(cx+1,cy-1);
+        mov2.set(cx,cy-1);
+        mov3.set(cx+1,cy);
+    } else if (cx ==centro_X && cy > centro_Y){    // esta en el cuadrante 7
+        cout<<moviendo->name << " cuadrante 7" <<endl;
+        mov1.set(cx,cy);
+    } else if (cx >centro_X && cy > centro_Y){    // esta en el cuadrante 8
+        cout<<moviendo->name << " cuadrante 8" <<endl;
+        mov1.set(cx-1,cy-1);
+        mov2.set(cx,cy-1);
+        mov3.set(cx-1,cy);
+    }
+    cout<<mapa->matrix[cy][cx]->x<<endl;
+    // verificando mov1
+    int camino = 0; // verifica si el personaje ya se movio
+    if (mapa->matrix[mov1.getY()][mov1.getX()]->army==0){
+        cout<<"esta vacio se mueve para aca"<<endl;
+        moviendo->moverse(mov1.getX(), mov1.getY());
+        // cambiar la lista
+        if (count_e == 1){ // esta en el ejercito 1
+        
+            ejercito1[c_eq1]->x = mov1.getX();
+            ejercito1[c_eq1]->y = mov1.getY();
+        }else{ //esta en el ejercito 2
+            ejercito1[c_eq2]->x = mov1.getX();
+            ejercito1[c_eq2]->y = mov1.getY();
+        }
+        // cambiar en el mapa
+
+        camino = 1;
+    } else if (mapa->matrix[mov1.getY()][mov1.getX()]->army==mapa->matrix[cy][cx]->army) {
+        cout<<"son amigos"<<endl;
+    } else {
+        cout<<"son enemigos va al combate"<<endl;
+        combate(moviendo, mapa->matrix[mov1.getY()][mov1.getX()]);
+        camino = 1;
+    }
+
+    // verificando mov2
+    if (camino==0){
+        if (mapa->matrix[mov2.getY()][mov2.getX()]->army==0){
+            cout<<"esta vacio se mueve para aca"<<endl;
+            moviendo->moverse(mov2.getX(), mov2.getY());
+            if (count_e == 1){ // esta en el ejercito 1
+                ejercito1[c_eq1]->x = mov2.getX();
+                ejercito1[c_eq1]->y = mov2.getY();
+            }else{ //esta en el ejercito 2
+                ejercito2[c_eq2]->x = mov2.getX();
+                ejercito2[c_eq2]->y = mov2.getY();
+            }
+            camino = 1;
+        } else if (mapa->matrix[mov2.getY()][mov2.getX()]->army==mapa->matrix[cy][cx]->army) {
+            cout<<"son amigos"<<endl;
+        } else {
+            cout<<"son enemigos va al combate"<<endl;
+            combate(moviendo, mapa->matrix[mov2.getY()][mov2.getX()]);
+            camino = 1;
+        }
+    }
+
+    // verificando mov3
+    if (camino==0){
+        if (mapa->matrix[mov3.getY()][mov3.getX()]->army==0){
+            cout<<"esta vacio se mueve para aca"<<endl;
+            moviendo->moverse(mov3.getX(), mov3.getY());
+            if (count_e == 1){ // esta en el ejercito 1
+                ejercito1[c_eq1]->x = mov3.getX();
+                ejercito1[c_eq1]->y = mov3.getY();
+            }else{ //esta en el ejercito 2
+                ejercito2[c_eq2]->x = mov3.getX();
+                ejercito2[c_eq2]->y = mov3.getY();
+            }
+            camino = 1;
+        } else if (mapa->matrix[mov3.getY()][mov3.getX()]->army==mapa->matrix[cy][cx]->army) {
+            cout<<"son amigos"<<endl;
+        } else {
+            cout<<"son enemigos va al combate"<<endl;
+            combate(moviendo, mapa->matrix[mov3.getY()][mov3.getX()]);
+            camino = 1;
+        }
+    }
+
+    // no se mueve el gerrero
+
+
+
+
+    // eleccion de mov prioritario
+    // testeo de lugar
+    // mov 1 si es que hay un enemigo o esta vacia la posicion del mapa
+    
+
+    // los movimientos estan en orden de prioridad
+    // si es que no hay nadie avansa y se queda en esa posicion
+    // si es que hay un enemigo ataca y muere o sobrevive
+    // si hay un amigo pasa a la seguna prioridad de moverse
+
+
+    if (count_e == 2){ // se mueve un personaje del ejercito 2
+        if (c_eq1<ejercito2.size()){
+            c_eq2++;
+        } else{
+            c_eq2 = 0;
+        }
+        c_eq1++;
+        count_e = 1; // para que despues le toque moverse al otro equipo
+    } else{
+        if (c_eq1<ejercito1.size()){
+            c_eq1++;
+        } else{
+            c_eq1 = 0;
+        }
+        count_e = 2; // para que despues le toque moverse al otro equipo
+    }
+
+
+    return turno;
+    
+
+
+
     // Aqui se define hacia que lado se mueve el personaje y como actua si choca con un enemigo o un amigo
+    /*
     if (pvE1 > pvE2) { // Si la velocidad promedio del ejercito1 es mayor a la del ejercito2, se mueven primero los del ejercito1
         if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
             if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]->army !=1) {
@@ -323,6 +497,8 @@ int Juego::calcularTurno() {
         turno_actual = 0;
     }
     return turno_actual;
+    */
+
 }
 
 void Juego::mostrarMapa() {
@@ -428,7 +604,7 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
             }
         }
     }
-    // Finalia el combate, falta eliminar al perdedor de la matriz y reemplazarlo en el vector de su ejercito
+    // Finaliza el combate, falta eliminar al perdedor de la matriz y reemplazarlo en el vector de su ejercito
     if (P1->health == 0) {
         if (P1->army == 1) {
             ejercito1[turno_actual] = mapa->Vacio;
@@ -436,12 +612,8 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
             ejercito2[turno_actual] = mapa->Vacio;
             cout << "Murio uno del equipo " << P1->army << endl;
         }
-        int X = P2->x;
-        int Y = P2->y;
-        mapa->eliminaPersonaje(P1);
-        cout << X << endl;
-        cout << Y << endl;
         cout << "Combate finalizado, ha ganado " << P2->name << P2->army << endl;
+        mapa->eliminaPersonaje(P1);
         
     } else if (P2->health == 0) {
         if (P1->army == 1) {
@@ -450,13 +622,8 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
             ejercito2[turno_actual] = mapa->Vacio;
             cout << "Murio uno del equipo " << P2->army << endl;
         }
-
-        int X = P2->x;
-        int Y = P2->y;
-        mapa->eliminaPersonaje(P2);
-        cout << X << endl;
-        cout << Y << endl;
         cout << "Combate finalizado, ha ganado " << P1->name << P1->army << endl;
-        P1->moverse(X, Y);
+        mapa->eliminaPersonaje(P2);
+        P1->moverse(P2->x, P2->y);
     }
 }

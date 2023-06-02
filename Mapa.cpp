@@ -34,6 +34,7 @@ Mapa::~Mapa() {
             delete matrix[i][j];
         }
     }
+
 }
 
 /*
