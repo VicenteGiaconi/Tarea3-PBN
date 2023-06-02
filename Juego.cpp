@@ -174,6 +174,11 @@ int Juego::calcularTurno() {
     // verificando mov1
     int camino = 0; // verifica si el personaje ya se movio
     if (mapa->matrix[mov1.getY()][mov1.getX()]->army==0){
+<<<<<<< HEAD
+=======
+        cout<<"esta vacio se mueve para aca"<<endl;
+
+>>>>>>> 074117bbf9ae8471ca6270a91eb6fce03d101108
         moviendo->moverse(mov1.getX(), mov1.getY());
         // cambiar la lista
         if (count_e == 1){ // esta en el ejercito 1
@@ -183,13 +188,20 @@ int Juego::calcularTurno() {
         }else{ //esta en el ejercito 2
             ejercito1[c_eq2]->x = mov1.getX();
             ejercito1[c_eq2]->y = mov1.getY();
+
         }
         // cambiar en el mapa
 
         camino = 1;
     } else if (mapa->matrix[mov1.getY()][mov1.getX()]->army==mapa->matrix[cy][cx]->army) {
     } else {
+<<<<<<< HEAD
+=======
+        cout<<"son enemigos va al combate"<<endl;
+
+>>>>>>> 074117bbf9ae8471ca6270a91eb6fce03d101108
         combate(moviendo, mapa->matrix[mov1.getY()][mov1.getX()]);
+
         camino = 1;
     }
 
@@ -203,6 +215,7 @@ int Juego::calcularTurno() {
             }else{ //esta en el ejercito 2
                 ejercito2[c_eq2]->x = mov2.getX();
                 ejercito2[c_eq2]->y = mov2.getY();
+
             }
             camino = 1;
         } else if (mapa->matrix[mov2.getY()][mov2.getX()]->army==mapa->matrix[cy][cx]->army) {
@@ -222,11 +235,13 @@ int Juego::calcularTurno() {
             }else{ //esta en el ejercito 2
                 ejercito2[c_eq2]->x = mov3.getX();
                 ejercito2[c_eq2]->y = mov3.getY();
+
             }
             camino = 1;
         } else if (mapa->matrix[mov3.getY()][mov3.getX()]->army==mapa->matrix[cy][cx]->army) {
         } else {
             combate(moviendo, mapa->matrix[mov3.getY()][mov3.getX()]);
+
             camino = 1;
         }
     }
