@@ -44,3 +44,4 @@ en calcular turno se dan las indicaciones a los peronajes para moverse, pero tod
 a combate le falta eliminar a los personajes
 la funcion moverse solo indica hacia donde se mueven, no los mueve realmente
 
+calcular turno resetructurado y falta probar, ver lo de los combates y rebisar ganador

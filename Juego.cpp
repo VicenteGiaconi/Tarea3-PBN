@@ -102,10 +102,20 @@ void Juego::jugar() {
         svE1 = svE1 + ejercito1[i]->velocity;
         svE2 = svE2 + ejercito2[i]->velocity;
     }
+
     pvE1 = svE1/n_soldados1;
     pvE2 = svE2/n_soldados1;
-    entrada.close();
-    
+    // se setean los contadores para poder jugar despues
+    // se seta ell qequipo que va primero
+
+    if (pvE1<pvE2){
+        count_e = 2;
+    } else{
+        count_e = 1; // por defecto se mueve primero el primer ejercito si los dos promedios son iguales
+    }
+    c_eq1=0;      
+    c_eq2=0;
+    turno=0;     
     entrada.close();
 }
 
@@ -114,7 +124,147 @@ void Juego::chequearGanador() {
 }
 
 int Juego::calcularTurno() {
+    Personaje *moviendo; 
+    turno++;
+
+    // seleccion del personaje qe le corresponde moverse
+    // aca se deviera de agregar si es que esta muerto o no el personaje
+    if (count_e == 2){ // se mueve un personaje del ejercito 2
+        moviendo = ejercito2[c_eq2];
+        if (c_eq1<ejercito2.size()){
+            c_eq2++;
+        } else{
+            c_eq2 = 0;
+        }
+        c_eq1++;
+        count_e = 1; // para que despues le toque moverse al otro equipo
+    } else{
+        moviendo = ejercito1[c_eq1];
+        if (c_eq1<ejercito1.size()){
+            c_eq1++;
+        } else{
+            c_eq1 = 0;
+        }
+        count_e = 2; // para que despues le toque moverse al otro equipo
+    }
+    int turno = 0;
+
+    // revison del cuadrante
+    int cx = moviendo-> x;
+    int cy = moviendo-> y;
+    int origin = 0;
+    Posicion mov1(cx,cy); // movimiento predeterminado 1
+    Posicion mov2(cx,cy); // movimiento predeterminado 2
+    Posicion mov3(cx,cy); // movimiento predeterminado 3
+
+    if (cx == centro_X && cy ==centro_Y){         //personaje esta en el centro
+        cout<<moviendo->name << " no se mueve " <<endl;
+    } else if(cx < centro_X && cy < centro_Y){    // esta en el cuadrante 1
+        cout<<moviendo->name << " cuadrante 1" <<endl;
+        mov1.set(cx,cy+1);
+        mov2.set(cx,cy+1);
+        mov3.set(cx+1,cy);
+    } else if (cx == centro_X && cy < centro_Y){  // esta en el cuadrante 2
+        cout<<moviendo->name << " cuadrante 2" <<endl;
+        mov1.set(cx,cy+1);
+    } else if (cx >centro_X && cy < centro_Y){    // esta en el cuadrante 3
+        cout<<moviendo->name << " cuadrante 3" <<endl;
+        mov1.set(cx-1,cy+1);
+        mov2.set(cx,cy+1);
+        mov3.set(cx-1,cy);
+    } else if (cx < centro_X && cy == centro_Y){  // esta en el cuadrante 4
+        cout<<moviendo->name << " cuadrante 4" <<endl;
+        mov1.set(cx+1,cy);
+    } else if (cx >centro_X && cy == centro_Y){    // esta en el cuadrante 5
+        cout<<moviendo->name << " cuadrante 5" <<endl;
+        mov1.set(cx-1,cy);
+    } else if (cx <centro_X && cy > centro_Y){    // esta en el cuadrante 6
+        cout<<moviendo->name << " cuadrante 6" <<endl;
+        mov1.set(cx+1,cy-1);
+        mov2.set(cx,cy-1);
+        mov3.set(cx+1,cy);
+    } else if (cx ==centro_X && cy > centro_Y){    // esta en el cuadrante 7
+        cout<<moviendo->name << " cuadrante 7" <<endl;
+        mov1.set(cx,cy);
+    } else if (cx >centro_X && cy > centro_Y){    // esta en el cuadrante 8
+        cout<<moviendo->name << " cuadrante 8" <<endl;
+        mov1.set(cx-1,cy-1);
+        mov2.set(cx,cy-1);
+        mov3.set(cx-1,cy);
+    }
+
+
+
+    cout<< mapa->matrix[cy][cx]->army<<endl;
+    cout<< mapa->matrix[mov1.getY()][mov1.getX()]->army<<endl;
+
+    // verificando mov1
+    int camino = 0; // verifica si el personaje ya se movio
+    if (mapa->matrix[mov1.getY()][mov1.getX()]->army==0){
+        cout<<"esta vacio se mueve para aca"<<endl;
+        camino = 1;
+    } else if (mapa->matrix[mov1.getY()][mov1.getX()]->army==mapa->matrix[cy][cx]->army) {
+        cout<<"son amigos"<<endl;
+    } else {
+        cout<<"son enemigos va al combate"<<endl;
+        camino = 1;
+    }
+
+    // verificando mov2
+    if (camino==0){
+        if (mapa->matrix[mov2.getY()][mov2.getX()]->army==0){
+            cout<<"esta vacio se mueve para aca"<<endl;
+            camino = 1;
+        } else if (mapa->matrix[mov2.getY()][mov2.getX()]->army==mapa->matrix[cy][cx]->army) {
+            cout<<"son amigos"<<endl;
+        } else {
+            cout<<"son enemigos va al combate"<<endl;
+            camino = 1;
+        }
+    }
+
+    // verificando mov3
+    if (camino==0){
+        if (mapa->matrix[mov3.getY()][mov3.getX()]->army==0){
+            cout<<"esta vacio se mueve para aca"<<endl;
+            camino = 1;
+        } else if (mapa->matrix[mov3.getY()][mov3.getX()]->army==mapa->matrix[cy][cx]->army) {
+            cout<<"son amigos"<<endl;
+        } else {
+            cout<<"son enemigos va al combate"<<endl;
+            camino = 1;
+        }
+    }
+
+    // no se mueve el gerrero
+
+
+
+
+    // eleccion de mov prioritario
+    // testeo de lugar
+    // mov 1 si es que hay un enemigo o esta vacia la posicion del mapa
+    
+
+    // los movimientos estan en orden de prioridad
+    // si es que no hay nadie avansa y se queda en esa posicion
+    // si es que hay un enemigo ataca y muere o sobrevive
+    // si hay un amigo pasa a la seguna prioridad de moverse
+
+
+
+
+
+    return turno;
+    
+
+
+
     // Aqui se define hacia que lado se mueve el personaje y como actua si choca con un enemigo o un amigo
+    /*
+
+    // Aqui se define hacia que lado se mueve el personaje y como actua si choca con un enemigo o un amigo
+
     if (pvE1 > pvE2) { // Si la velocidad promedio del ejercito1 es mayor a la del ejercito2, se mueven primero los del ejercito1
         if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
             if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]->army !=1) {
@@ -323,6 +473,8 @@ int Juego::calcularTurno() {
         turno_actual = 0;
     }
     return turno_actual;
+    */
+
 }
 
 void Juego::mostrarMapa() {
