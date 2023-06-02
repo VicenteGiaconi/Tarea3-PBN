@@ -4,12 +4,14 @@
 
 using namespace std;
 
-Personaje::Personaje(string Name, int Health, int Attack, int Velocity,int Army, int X, int Y) : Posicion(X, Y){  // arrmy es para poder diferenciar de que ejercito es
+Personaje::Personaje(string Name, int Health, int Attack, int Velocity,int Army, Posicion place) {  // arrmy es para poder diferenciar de que ejercito es
     name = Name;
     health = Health;
     attack = Attack;
     velocity = Velocity;
     army = Army;
+    x = place.getX();
+    y = place.getY();
 }
 
 int Personaje::ataque() {
