@@ -21,7 +21,20 @@ void Mapa::agregarPersonaje(Personaje *person){
 }
 
 void Mapa::eliminaPersonaje(Personaje *person) {
+    Posicion pos (0,0);
+    Personaje *Vacio = new Personaje("",0,0,0,0,pos);
+    cout << "Eliminando a " << person->name << person->army << endl;
     matrix[person->y][person->x] = Vacio;
+}
+
+Mapa::~Mapa() {
+    delete Vacio;
+    for (int i = 0; i < high; i++) {
+        for (int j = 0; j < broad; j++) {
+            delete matrix[i][j];
+        }
+    }
+
 }
 
 /*
