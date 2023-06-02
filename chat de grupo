@@ -39,3 +39,8 @@ el programa muestra el mapa cuando ya está armado, todo fuciona con punteros
 mostar mapa, y vacio listo
 mostrar mapa listo, y personaje vacio estandr ya esta arreglado
 posicion arreglada
+
+en calcular turno se dan las indicaciones a los peronajes para moverse, pero todavia falta que se vacien las casillas para poder moverse
+a combate le falta eliminar a los personajes
+la funcion moverse solo indica hacia donde se mueven, no los mueve realmente
+
