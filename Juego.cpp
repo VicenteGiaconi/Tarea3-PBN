@@ -131,23 +131,9 @@ int Juego::calcularTurno() {
     // aca se deviera de agregar si es que esta muerto o no el personaje
     if (count_e == 2){ // se mueve un personaje del ejercito 2
         moviendo = ejercito2[c_eq2];
-        if (c_eq1<ejercito2.size()){
-            c_eq2++;
-        } else{
-            c_eq2 = 0;
-        }
-        c_eq1++;
-        count_e = 1; // para que despues le toque moverse al otro equipo
     } else{
         moviendo = ejercito1[c_eq1];
-        if (c_eq1<ejercito1.size()){
-            c_eq1++;
-        } else{
-            c_eq1 = 0;
-        }
-        count_e = 2; // para que despues le toque moverse al otro equipo
     }
-    int turno = 0;
 
     // revison del cuadrante
     int cx = moviendo-> x;
@@ -161,7 +147,7 @@ int Juego::calcularTurno() {
         cout<<moviendo->name << " no se mueve " <<endl;
     } else if(cx < centro_X && cy < centro_Y){    // esta en el cuadrante 1
         cout<<moviendo->name << " cuadrante 1" <<endl;
-        mov1.set(cx,cy+1);
+        mov1.set(cx+1,cy+1);
         mov2.set(cx,cy+1);
         mov3.set(cx+1,cy);
     } else if (cx == centro_X && cy < centro_Y){  // esta en el cuadrante 2
@@ -192,16 +178,21 @@ int Juego::calcularTurno() {
         mov2.set(cx,cy-1);
         mov3.set(cx-1,cy);
     }
-
-
-
-    cout<< mapa->matrix[cy][cx]->army<<endl;
-    cout<< mapa->matrix[mov1.getY()][mov1.getX()]->army<<endl;
-
+    cout<<mapa->matrix[cy][cx]->x<<endl;
     // verificando mov1
     int camino = 0; // verifica si el personaje ya se movio
     if (mapa->matrix[mov1.getY()][mov1.getX()]->army==0){
         cout<<"esta vacio se mueve para aca"<<endl;
+        // cambiar la lista
+        if (count_e == 1){ // esta en el ejercito 1
+            ejercito2[c_eq2]->x = mov1.getX();
+            ejercito2[c_eq2]->y = mov1.getY();
+        }else{ //esta en el ejercito 2
+            ejercito1[c_eq1]->x = mov1.getX();
+            ejercito1[c_eq1]->y = mov1.getY();
+        }
+        // cambiar en el mapa
+
         camino = 1;
     } else if (mapa->matrix[mov1.getY()][mov1.getX()]->army==mapa->matrix[cy][cx]->army) {
         cout<<"son amigos"<<endl;
@@ -214,6 +205,13 @@ int Juego::calcularTurno() {
     if (camino==0){
         if (mapa->matrix[mov2.getY()][mov2.getX()]->army==0){
             cout<<"esta vacio se mueve para aca"<<endl;
+            if (count_e == 1){ // esta en el ejercito 1
+                ejercito2[c_eq2]->x = mov2.getX();
+                ejercito2[c_eq2]->y = mov2.getY();
+            }else{ //esta en el ejercito 2
+                ejercito1[c_eq1]->x = mov2.getX();
+                ejercito1[c_eq1]->y = mov2.getY();
+            }
             camino = 1;
         } else if (mapa->matrix[mov2.getY()][mov2.getX()]->army==mapa->matrix[cy][cx]->army) {
             cout<<"son amigos"<<endl;
@@ -227,6 +225,13 @@ int Juego::calcularTurno() {
     if (camino==0){
         if (mapa->matrix[mov3.getY()][mov3.getX()]->army==0){
             cout<<"esta vacio se mueve para aca"<<endl;
+            if (count_e == 1){ // esta en el ejercito 1
+                ejercito2[c_eq2]->x = mov3.getX();
+                ejercito2[c_eq2]->y = mov3.getY();
+            }else{ //esta en el ejercito 2
+                ejercito1[c_eq1]->x = mov3.getX();
+                ejercito1[c_eq1]->y = mov3.getY();
+            }
             camino = 1;
         } else if (mapa->matrix[mov3.getY()][mov3.getX()]->army==mapa->matrix[cy][cx]->army) {
             cout<<"son amigos"<<endl;
@@ -252,7 +257,22 @@ int Juego::calcularTurno() {
     // si hay un amigo pasa a la seguna prioridad de moverse
 
 
-
+    if (count_e == 2){ // se mueve un personaje del ejercito 2
+        if (c_eq1<ejercito2.size()){
+            c_eq2++;
+        } else{
+            c_eq2 = 0;
+        }
+        c_eq1++;
+        count_e = 1; // para que despues le toque moverse al otro equipo
+    } else{
+        if (c_eq1<ejercito1.size()){
+            c_eq1++;
+        } else{
+            c_eq1 = 0;
+        }
+        count_e = 2; // para que despues le toque moverse al otro equipo
+    }
 
 
     return turno;
