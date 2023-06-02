@@ -430,15 +430,33 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
     }
     // Finalia el combate, falta eliminar al perdedor de la matriz y reemplazarlo en el vector de su ejercito
     if (P1->health == 0) {
-        /*if (P1->army == 1) {
+        if (P1->army == 1) {
             ejercito1[turno_actual] = mapa->Vacio;
         } else {
             ejercito2[turno_actual] = mapa->Vacio;
-        }*/
-        //mapa->eliminaPersonaje(P1);
+            cout << "Murio uno del equipo " << P1->army << endl;
+        }
+        int X = P2->x;
+        int Y = P2->y;
+        mapa->eliminaPersonaje(P1);
+        cout << X << endl;
+        cout << Y << endl;
         cout << "Combate finalizado, ha ganado " << P2->name << P2->army << endl;
+        
     } else if (P2->health == 0) {
-        //mapa->eliminaPersonaje(P2);
+        if (P1->army == 1) {
+            ejercito1[turno_actual] = mapa->Vacio;
+        } else {
+            ejercito2[turno_actual] = mapa->Vacio;
+            cout << "Murio uno del equipo " << P2->army << endl;
+        }
+
+        int X = P2->x;
+        int Y = P2->y;
+        mapa->eliminaPersonaje(P2);
+        cout << X << endl;
+        cout << Y << endl;
         cout << "Combate finalizado, ha ganado " << P1->name << P1->army << endl;
+        P1->moverse(X, Y);
     }
 }
