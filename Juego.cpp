@@ -120,7 +120,9 @@ void Juego::jugar() {
 }
 
 void Juego::chequearGanador() {
-    // Chequea si ha ganado uno de los ejercitos
+    for (int i = 0; i < n_soldados1;i++) {
+        cout  << ejercito1[i]->name << endl;
+    }
 }
 
 int Juego::calcularTurno() {
@@ -144,79 +146,90 @@ int Juego::calcularTurno() {
     Posicion mov3(cx,cy); // movimiento predeterminado 3
 
     if (cx == centro_X && cy ==centro_Y){         //personaje esta en el centro
-        cout<<moviendo->name << " no se mueve " <<endl;
     } else if(cx < centro_X && cy < centro_Y){    // esta en el cuadrante 1
-        cout<<moviendo->name << " cuadrante 1" <<endl;
         mov1.set(cx+1,cy+1);
         mov2.set(cx,cy+1);
         mov3.set(cx+1,cy);
     } else if (cx == centro_X && cy < centro_Y){  // esta en el cuadrante 2
-        cout<<moviendo->name << " cuadrante 2" <<endl;
         mov1.set(cx,cy+1);
     } else if (cx >centro_X && cy < centro_Y){    // esta en el cuadrante 3
-        cout<<moviendo->name << " cuadrante 3" <<endl;
         mov1.set(cx-1,cy+1);
         mov2.set(cx,cy+1);
         mov3.set(cx-1,cy);
     } else if (cx < centro_X && cy == centro_Y){  // esta en el cuadrante 4
-        cout<<moviendo->name << " cuadrante 4" <<endl;
         mov1.set(cx+1,cy);
     } else if (cx >centro_X && cy == centro_Y){    // esta en el cuadrante 5
-        cout<<moviendo->name << " cuadrante 5" <<endl;
         mov1.set(cx-1,cy);
     } else if (cx <centro_X && cy > centro_Y){    // esta en el cuadrante 6
-        cout<<moviendo->name << " cuadrante 6" <<endl;
         mov1.set(cx+1,cy-1);
         mov2.set(cx,cy-1);
         mov3.set(cx+1,cy);
     } else if (cx ==centro_X && cy > centro_Y){    // esta en el cuadrante 7
-        cout<<moviendo->name << " cuadrante 7" <<endl;
         mov1.set(cx,cy);
     } else if (cx >centro_X && cy > centro_Y){    // esta en el cuadrante 8
-        cout<<moviendo->name << " cuadrante 8" <<endl;
         mov1.set(cx-1,cy-1);
         mov2.set(cx,cy-1);
         mov3.set(cx-1,cy);
     }
-    cout<<mapa->matrix[cy][cx]->x<<endl;
+
+
+    Personaje *listo = mapa->matrix[cy][cx];
+    mapa->eliminaPersonaje(mapa->matrix[cy][cx]);
+    listo->x = mov1.getX();
+    listo->y = mov1.getY();
+    mapa->matrix[listo->y][listo->x] = listo;
+    
+
+
+
+
+
     // verificando mov1
     int camino = 0; // verifica si el personaje ya se movio
     if (mapa->matrix[mov1.getY()][mov1.getX()]->army==0){
-        cout<<"esta vacio se mueve para aca"<<endl;
+        moviendo->moverse(mov1.getX(), mov1.getY());
         // cambiar la lista
         if (count_e == 1){ // esta en el ejercito 1
-            ejercito2[c_eq2]->x = mov1.getX();
-            ejercito2[c_eq2]->y = mov1.getY();
-        }else{ //esta en el ejercito 2
             ejercito1[c_eq1]->x = mov1.getX();
             ejercito1[c_eq1]->y = mov1.getY();
+        }else{ //esta en el ejercito 2
+            ejercito1[c_eq2]->x = mov1.getX();
+            ejercito1[c_eq2]->y = mov1.getY();
         }
         // cambiar en el mapa
+        Personaje *listo = mapa->matrix[cy][cx];
+        mapa->eliminaPersonaje(mapa->matrix[cy][cx]);
+        listo->x = mov1.getX();
+        listo->y = mov1.getY();
+        mapa->matrix[listo->y][listo->x] = listo;
 
         camino = 1;
     } else if (mapa->matrix[mov1.getY()][mov1.getX()]->army==mapa->matrix[cy][cx]->army) {
-        cout<<"son amigos"<<endl;
     } else {
-        cout<<"son enemigos va al combate"<<endl;
+        //combate(moviendo, mapa->matrix[mov1.getY()][mov1.getX()]);
         camino = 1;
     }
 
     // verificando mov2
     if (camino==0){
         if (mapa->matrix[mov2.getY()][mov2.getX()]->army==0){
-            cout<<"esta vacio se mueve para aca"<<endl;
+            moviendo->moverse(mov2.getX(), mov2.getY());
             if (count_e == 1){ // esta en el ejercito 1
-                ejercito2[c_eq2]->x = mov2.getX();
-                ejercito2[c_eq2]->y = mov2.getY();
-            }else{ //esta en el ejercito 2
                 ejercito1[c_eq1]->x = mov2.getX();
                 ejercito1[c_eq1]->y = mov2.getY();
+            }else{ //esta en el ejercito 2
+                ejercito2[c_eq2]->x = mov2.getX();
+                ejercito2[c_eq2]->y = mov2.getY();
             }
+            Personaje *listo = mapa->matrix[cy][cx];
+            mapa->eliminaPersonaje(mapa->matrix[cy][cx]);
+            listo->x = mov1.getX();
+            listo->y = mov1.getY();
+            mapa->matrix[listo->y][listo->x] = listo;
             camino = 1;
         } else if (mapa->matrix[mov2.getY()][mov2.getX()]->army==mapa->matrix[cy][cx]->army) {
-            cout<<"son amigos"<<endl;
         } else {
-            cout<<"son enemigos va al combate"<<endl;
+            //combate(moviendo, mapa->matrix[mov2.getY()][mov2.getX()]);
             camino = 1;
         }
     }
@@ -224,19 +237,24 @@ int Juego::calcularTurno() {
     // verificando mov3
     if (camino==0){
         if (mapa->matrix[mov3.getY()][mov3.getX()]->army==0){
-            cout<<"esta vacio se mueve para aca"<<endl;
+            moviendo->moverse(mov3.getX(), mov3.getY());
             if (count_e == 1){ // esta en el ejercito 1
-                ejercito2[c_eq2]->x = mov3.getX();
-                ejercito2[c_eq2]->y = mov3.getY();
-            }else{ //esta en el ejercito 2
                 ejercito1[c_eq1]->x = mov3.getX();
                 ejercito1[c_eq1]->y = mov3.getY();
+            }else{ //esta en el ejercito 2
+                ejercito2[c_eq2]->x = mov3.getX();
+                ejercito2[c_eq2]->y = mov3.getY();
             }
+            Personaje *listo = mapa->matrix[cy][cx];
+            mapa->eliminaPersonaje(mapa->matrix[cy][cx]);
+            listo->x = mov1.getX();
+            listo->y = mov1.getY();
+            mapa->matrix[listo->y][listo->x] = listo;
+
             camino = 1;
         } else if (mapa->matrix[mov3.getY()][mov3.getX()]->army==mapa->matrix[cy][cx]->army) {
-            cout<<"son amigos"<<endl;
         } else {
-            cout<<"son enemigos va al combate"<<endl;
+            //combate(moviendo, mapa->matrix[mov3.getY()][mov3.getX()]);
             camino = 1;
         }
     }
@@ -280,217 +298,7 @@ int Juego::calcularTurno() {
 
 
 
-    // Aqui se define hacia que lado se mueve el personaje y como actua si choca con un enemigo o un amigo
-    /*
-    if (pvE1 > pvE2) { // Si la velocidad promedio del ejercito1 es mayor a la del ejercito2, se mueven primero los del ejercito1
-        if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x+1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x+1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x > centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x-1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x-1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x > centro_X) && (ejercito1[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x-1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x-1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x == centro_X) && (ejercito1[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x == centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x+1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x+1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x > centro_X) && (ejercito1[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x-1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x-1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x-1]);
-                }
-            }
-        }
-
-        if ((ejercito2[turno_actual]->x < centro_X) && (ejercito2[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x+1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x+1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x < centro_X) && (ejercito2[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x+1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x+1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x > centro_X) && (ejercito2[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x-1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x-1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x > centro_X) && (ejercito2[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x-1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x-1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x == centro_X) && (ejercito2[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x == centro_X) && (ejercito2[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x < centro_X) && (ejercito2[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x+1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x+1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x > centro_X) && (ejercito2[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x-1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x-1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x-1]);
-                }
-            }
-        }
-    } else { // Si la velocidad promedio del ejercito2 es mayor a la del ejercito1, se mueven primero los del ejercito2
-        if ((ejercito2[turno_actual]->x < centro_X) && (ejercito2[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x+1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x+1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x < centro_X) && (ejercito2[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x+1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x+1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x > centro_X) && (ejercito2[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x-1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x-1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x > centro_X) && (ejercito2[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x-1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x-1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x == centro_X) && (ejercito2[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y-1][ejercito2[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x == centro_X) && (ejercito2[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y+1][ejercito2[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x < centro_X) && (ejercito2[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x+1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x+1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito2[turno_actual]->x > centro_X) && (ejercito2[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x-1]->army !=2) {
-                if (mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x-1]->army ==1) {
-                    combate(ejercito2[turno_actual], mapa->matrix[ejercito2[turno_actual]->y][ejercito2[turno_actual]->x-1]);
-                }
-            }
-        }
-
-        if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x+1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x+1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x > centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x-1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x-1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x > centro_X) && (ejercito1[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x-1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x-1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x-1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x == centro_X) && (ejercito1[turno_actual]->y > centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y-1][ejercito1[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x == centro_X) && (ejercito1[turno_actual]->y < centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y+1][ejercito1[turno_actual]->x]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x < centro_X) && (ejercito1[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x+1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x+1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x+1]);
-                }
-            }
-        } else if ((ejercito1[turno_actual]->x > centro_X) && (ejercito1[turno_actual]->y == centro_Y)) {
-            if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x-1]->army !=1) {
-                if (mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x-1]->army ==2) {
-                    combate(ejercito1[turno_actual], mapa->matrix[ejercito1[turno_actual]->y][ejercito1[turno_actual]->x-1]);
-                }
-            }
-        }
-    }
-
-    if (turno_actual < n_soldados1-1) {
-        turno_actual++;
-    } else {
-        turno_actual = 0;
-    }
-    return turno_actual;
-    */
+  
 
 }
 
@@ -597,35 +405,6 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
             }
         }
     }
-    // Finalia el combate, falta eliminar al perdedor de la matriz y reemplazarlo en el vector de su ejercito
-    if (P1->health == 0) {
-        if (P1->army == 1) {
-            ejercito1[turno_actual] = mapa->Vacio;
-        } else {
-            ejercito2[turno_actual] = mapa->Vacio;
-            cout << "Murio uno del equipo " << P1->army << endl;
-        }
-        int X = P2->x;
-        int Y = P2->y;
-        mapa->eliminaPersonaje(P1);
-        cout << X << endl;
-        cout << Y << endl;
-        cout << "Combate finalizado, ha ganado " << P2->name << P2->army << endl;
-        
-    } else if (P2->health == 0) {
-        if (P1->army == 1) {
-            ejercito1[turno_actual] = mapa->Vacio;
-        } else {
-            ejercito2[turno_actual] = mapa->Vacio;
-            cout << "Murio uno del equipo " << P2->army << endl;
-        }
-
-        int X = P2->x;
-        int Y = P2->y;
-        mapa->eliminaPersonaje(P2);
-        cout << X << endl;
-        cout << Y << endl;
-        cout << "Combate finalizado, ha ganado " << P1->name << P1->army << endl;
-        P1->moverse(X, Y);
-    }
+    // Finaliza el combate, falta eliminar al perdedor de la matriz y reemplazarlo en el vector de su ejercito
+    
 }

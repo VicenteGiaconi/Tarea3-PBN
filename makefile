@@ -1,5 +1,5 @@
 CC=g++
-exe=p
+exe=tarea_3
 flags=-Wall -Wextra -Wundef -Werror -Wuninitialized -Winit-self
 
 $(exe): Mapa.o Posicion.o Personaje.o Juego.o main.o
