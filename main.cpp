@@ -17,9 +17,10 @@ int main(int argc, char **argv) {
 
         juego.calcularTurno();
         juego.mostrarMapa();
+
         juego.chequearGanador();
         counter++;
     }
-    */
+    
     return 0;
 }

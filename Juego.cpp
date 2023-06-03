@@ -173,16 +173,12 @@ int Juego::calcularTurno() {
     }
 
 
+    // bloque de movimiento 
     Personaje *listo = mapa->matrix[cy][cx];
     mapa->eliminaPersonaje(mapa->matrix[cy][cx]);
     listo->x = mov1.getX();
     listo->y = mov1.getY();
     mapa->matrix[listo->y][listo->x] = listo;
-    
-
-
-
-
 
     // verificando mov1
     int camino = 0; // verifica si el personaje ya se movio
@@ -206,7 +202,9 @@ int Juego::calcularTurno() {
         camino = 1;
     } else if (mapa->matrix[mov1.getY()][mov1.getX()]->army==mapa->matrix[cy][cx]->army) {
     } else {
+
         //combate(moviendo, mapa->matrix[mov1.getY()][mov1.getX()]);
+
         camino = 1;
     }
 
@@ -230,6 +228,7 @@ int Juego::calcularTurno() {
         } else if (mapa->matrix[mov2.getY()][mov2.getX()]->army==mapa->matrix[cy][cx]->army) {
         } else {
             //combate(moviendo, mapa->matrix[mov2.getY()][mov2.getX()]);
+
             camino = 1;
         }
     }
@@ -255,6 +254,7 @@ int Juego::calcularTurno() {
         } else if (mapa->matrix[mov3.getY()][mov3.getX()]->army==mapa->matrix[cy][cx]->army) {
         } else {
             //combate(moviendo, mapa->matrix[mov3.getY()][mov3.getX()]);
+
             camino = 1;
         }
     }
@@ -406,5 +406,5 @@ void Juego::combate(Personaje *P1, Personaje *P2) {
         }
     }
     // Finaliza el combate, falta eliminar al perdedor de la matriz y reemplazarlo en el vector de su ejercito
-    
+
 }
